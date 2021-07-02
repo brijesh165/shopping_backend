@@ -6,7 +6,7 @@ const _controller = {};
 
 _controller.createProduct = async function (req, res) {
     try {
-        console.log("Create Product Params: ", req.body);
+        console.log("Create Product Params: ", req);
         upload.single(req.body.image);
         await db.productsModel.create(req.body)
 
