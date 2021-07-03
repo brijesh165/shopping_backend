@@ -10,4 +10,5 @@ module.exports = function (app) {
     check("username").not().isEmpty().withMessage("User name is required"),
     check("password").not().isEmpty().withMessage("Password is required")
   ], formValidationMiddleware, userController.login);
+
 }

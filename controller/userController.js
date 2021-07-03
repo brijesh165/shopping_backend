@@ -4,6 +4,11 @@ const md5 = require('md5');
 
 let _controller = {};
 
+/**
+ * 
+ * @param {*} username 
+ * @param {*} password 
+ */
 _controller.login = async function (req, res) {
     try {
         const user = await db.userModel.findOne({ username: req.body.username, password: md5(req.body.password) })
