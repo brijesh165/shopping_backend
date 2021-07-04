@@ -116,4 +116,20 @@ _controller.deleteProduct = async function (req, res) {
     }
 }
 
+
+/**
+ * @param {*} user_id
+ */
+_controller.checkout = async function (req, res) {
+    try {
+        await db.ordersModel.create(req.body);
+
+        res.send({
+            status: 200
+        })
+    } catch (error) {
+        console.log("Checkout Error: ", error)
+    }
+}
+
 module.exports = _controller;

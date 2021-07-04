@@ -14,11 +14,11 @@ module.exports = function (app) {
         check("description").not().isEmpty().withMessage("Description is required"),
         check("status").not().isEmpty().withMessage("Status is required"),
         check("user_id").not().isEmpty().withMessage("User id is required")
-    ], formValidationMiddleware, productController.createProduct);
+    ], formValidationMiddleware, authMiddleware, productController.createProduct);
 
-    app.post("/fetch-products", productController.fetchProducts)
+    app.post("/fetch-products", authMiddleware, productController.fetchProducts)
 
-    app.post("/fetch-user-products", productController.fetchUserProducts)
+    app.post("/fetch-user-products", authMiddleware, productController.fetchUserProducts)
 
     app.post('/edit-product', diskStorage.single('image'), [
         check("product_name").not().isEmpty().withMessage("Product name is required"),
@@ -28,11 +28,15 @@ module.exports = function (app) {
         check("description").not().isEmpty().withMessage("Description is required"),
         check("status").not().isEmpty().withMessage("Status is required"),
         check("user_id").not().isEmpty().withMessage("User id is required")
-    ], formValidationMiddleware, productController.editProduct)
+    ], formValidationMiddleware, authMiddleware, productController.editProduct)
 
     app.post("/delete-product", [
         check("id").not().isEmpty().withMessage("Product id is required")
-    ], formValidationMiddleware, productController.deleteProduct)
+    ], formValidationMiddleware, authMiddleware, productController.deleteProduct)
+
+    app.post("/checkout", [
+        check('user_id').not().isEmpty().withMessage("User id is required")
+    ], formValidationMiddleware, authMiddleware, productController.checkout)
 
 }
 
