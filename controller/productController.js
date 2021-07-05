@@ -36,8 +36,9 @@ _controller.createProduct = async function (req, res) {
  */
 _controller.fetchProducts = async function (req, res, next) {
     try {
+        console.log("Body: ", req.body)
         const products = await db.productsModel.find({ user_id: req.body.user_id });
-
+        // console.log("Products: ", products)
         res.send({
             status: 200,
             products: products

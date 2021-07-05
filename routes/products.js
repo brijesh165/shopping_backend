@@ -16,7 +16,9 @@ module.exports = function (app) {
         check("user_id").not().isEmpty().withMessage("User id is required")
     ], formValidationMiddleware, authMiddleware, productController.createProduct);
 
-    app.post("/fetch-products", authMiddleware, productController.fetchProducts)
+    app.post("/fetch-products", [
+        check("user_id").not().isEmpty().withMessage("User id is required")
+    ], formValidationMiddleware, authMiddleware, productController.fetchProducts)
 
     app.post("/fetch-user-products", authMiddleware, productController.fetchUserProducts)
 
