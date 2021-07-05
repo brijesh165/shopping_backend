@@ -6,6 +6,8 @@ const { check } = require('express-validator');
 const userController = require('./../controller/userController');
 
 module.exports = function (app) {
+
+  // api end point for login
   app.post("/login", [
     check("username").not().isEmpty().withMessage("User name is required"),
     check("password").not().isEmpty().withMessage("Password is required")

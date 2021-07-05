@@ -43,6 +43,7 @@ http.listen(process.env.PORT || 3001, function () {
   console.log("App in runnig at port 3001")
 })
 
+// seeder to create user in database
 // const seeder = require('./utils/seeder');
 // seeder.init();
 

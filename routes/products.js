@@ -6,6 +6,8 @@ const { check } = require('express-validator');
 const productController = require('./../controller/productController');
 
 module.exports = function (app) {
+
+    // api end point for create product
     app.post("/create-product", diskStorage.single('image'), [
         check("product_name").not().isEmpty().withMessage("Product name is required"),
         check("category").not().isEmpty().withMessage("Category is required"),
@@ -16,12 +18,15 @@ module.exports = function (app) {
         check("user_id").not().isEmpty().withMessage("User id is required")
     ], formValidationMiddleware, authMiddleware, productController.createProduct);
 
+    // api end point for fetch product when user role is shop
     app.post("/fetch-products", [
         check("user_id").not().isEmpty().withMessage("User id is required")
     ], formValidationMiddleware, authMiddleware, productController.fetchProducts)
 
-    app.post("/fetch-user-products", authMiddleware, productController.fetchUserProducts)
+    // api end point for fetch product when user role is user
+    app.get("/fetch-user-products", authMiddleware, productController.fetchUserProducts)
 
+    // api end point for edit product
     app.post('/edit-product', diskStorage.single('image'), [
         check("product_name").not().isEmpty().withMessage("Product name is required"),
         check("category").not().isEmpty().withMessage("Category is required"),
@@ -32,10 +37,12 @@ module.exports = function (app) {
         check("user_id").not().isEmpty().withMessage("User id is required")
     ], formValidationMiddleware, authMiddleware, productController.editProduct)
 
+    // api end point for delete product
     app.post("/delete-product", [
         check("id").not().isEmpty().withMessage("Product id is required")
     ], formValidationMiddleware, authMiddleware, productController.deleteProduct)
 
+    // api end point for checkout
     app.post("/checkout", [
         check('user_id').not().isEmpty().withMessage("User id is required")
     ], formValidationMiddleware, authMiddleware, productController.checkout)

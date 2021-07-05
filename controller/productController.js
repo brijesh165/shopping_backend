@@ -51,7 +51,7 @@ _controller.fetchProducts = async function (req, res, next) {
 _controller.fetchUserProducts = async function (req, res, next) {
     try {
         const products = await db.productsModel.find();
-
+        console.log("Products: ", products)
         res.send({
             status: 200,
             products: products
@@ -83,7 +83,7 @@ _controller.editProduct = async function (req, res) {
             subcategory: req.body.subcategory,
             description: req.body.description,
             price: req.body.price,
-            image: file.path,
+            image: 'images/' + file.filename,
             status: req.body.status
         }
         const product = await db.productsModel.findOneAndUpdate({ _id: req.body._id }, editParams, { new: true });
@@ -104,7 +104,7 @@ _controller.editProduct = async function (req, res) {
 _controller.deleteProduct = async function (req, res) {
     try {
 
-        fs.unlinkSync(req.body.imagepath);
+        fs.unlinkSync('public/' + req.body.imagepath);
         await db.productsModel.findByIdAndDelete(req.body.id);
 
 
