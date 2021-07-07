@@ -75,17 +75,20 @@ _controller.editProduct = async function (req, res) {
     try {
 
         console.log("Req: ", req.body);
-        const file = req.file;
-
+        let file;
         const editParams = {
             product_name: req.body.product_name,
             category: req.body.category,
             subcategory: req.body.subcategory,
             description: req.body.description,
             price: req.body.price,
-            image: 'images/' + file.filename,
             status: req.body.status
         }
+
+        if (req.file) {
+            editParams.image = "images/" + req.file.filename;
+        }
+
         const product = await db.productsModel.findOneAndUpdate({ _id: req.body._id }, editParams, { new: true });
 
         res.send({
