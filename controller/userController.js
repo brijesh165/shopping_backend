@@ -13,7 +13,6 @@ _controller.login = async function (req, res) {
     try {
         const user = await db.userModel.findOne({ username: req.body.username, password: md5(req.body.password) })
 
-        // console.log("User: ", user);
         if (user) {
             const token = jwt.sign({ id: req.body.username }, "provideyourprivatekey");
 

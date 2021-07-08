@@ -5,7 +5,6 @@ class Database {
         this._connect()
     }
     _connect() {
-        console.log("Path: ", process.env.MONGO_CONNECTION)
         mongoose.connect(process.env.MONGO_CONNECTION, {
             poolSize: 15,
             useNewUrlParser: true,

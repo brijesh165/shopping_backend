@@ -36,9 +36,7 @@ _controller.createProduct = async function (req, res) {
  */
 _controller.fetchProducts = async function (req, res, next) {
     try {
-        console.log("Body: ", req.body)
         const products = await db.productsModel.find({ user_id: req.body.user_id });
-        // console.log("Products: ", products)
         res.send({
             status: 200,
             products: products
@@ -51,7 +49,6 @@ _controller.fetchProducts = async function (req, res, next) {
 _controller.fetchUserProducts = async function (req, res, next) {
     try {
         const products = await db.productsModel.find();
-        console.log("Products: ", products)
         res.send({
             status: 200,
             products: products
@@ -74,7 +71,6 @@ _controller.fetchUserProducts = async function (req, res, next) {
 _controller.editProduct = async function (req, res) {
     try {
 
-        console.log("Req: ", req.body);
         let file;
         const editParams = {
             product_name: req.body.product_name,
